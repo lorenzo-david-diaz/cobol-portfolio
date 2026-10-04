@@ -1,0 +1,10 @@
+*.int
+*.gnt
+*.idy
+*.obj
+*.exe
+*.dll
+*.lst
+*.pdb
+bin/
+obj/
