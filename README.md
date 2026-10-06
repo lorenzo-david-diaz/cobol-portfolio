@@ -1,67 +1,70 @@
 ﻿# COBOL Portfolio
 
-COBOL programs by **Lorenzo David Diaz**, written with **Micro Focus Visual COBOL for Eclipse** and also tested with **GnuCOBOL 3.2**.
+COBOL programs by **Lorenzo David Diaz**, written with **Micro Focus Visual COBOL for Eclipse** and tested with **GnuCOBOL 3.2**.
 
 Decades of experience with COBOL, PL/I, FORTRAN, Assembler and IBM MVS systems, now applied with modern tools: Visual COBOL, GnuCOBOL, Git and GitHub.
+
+## Program index
+
+| Program  | Topic                                              | Location    |
+|----------|----------------------------------------------------|-------------|
+| PROG0010 | Sequential report with page break and totals       | PROG0010/   |
+| PROG0020 | Load an indexed (keyed) file from a sequential one | PROG0020/   |
+| PROG0021 | Read an indexed file sequentially and by key       | PROG0020/   |
+
+All programs use the same 120-record employee test data, so their control totals can be checked against each other: **120 records, total salary $1,769,195.84**.
 
 ---
 
 ## PROG0010 - Employee Listing with Page Break and Control Totals
 
-Reads a sequential employee file and produces an 80-column paginated report with:
+Reads a sequential employee file and produces an 80-column paginated report: title, run date and page number on every page, repeated column headings, a page break every 15 detail lines, and control totals (records read, records printed, total salary).
 
-- Page title, run date (4-digit year) and page number on every page
-- Column headings repeated on every page
-- One detail line per employee, with a page break every 15 detail lines
-- Control totals: employees read, employees printed, and total salary (up to 9 integer digits)
-- A run summary on the console: records read, records printed, pages printed
+Input: `EMPLEADOS.TXT` (50 bytes, line sequential). Output: `REPORTE_MF.TXT`. Data names in this first program are in Spanish (e.g., `EMPLEADOS` = employees, `SALARIO` = salary).
 
-### Input record layout - `EMPLEADOS.TXT` (50 bytes, line sequential)
+---
+
+## PROG0020 / PROG0021 - Indexed File Processing
+
+### PROG0020 - Load the employee master file
+- Reads `EMPLOYEES.TXT` and writes `EMPLOYEES.IDX`, an indexed file keyed on employee number.
+- Checks FILE STATUS after every OPEN, and uses INVALID KEY on every WRITE.
+- Skips records with employee number zero; rejects duplicate or out-of-sequence keys.
+- Control totals: records read, written, skipped, rejected, and total salary.
+
+### PROG0021 - Read the employee master file
+- `ACCESS MODE IS DYNAMIC`, so one program reads the file both ways.
+- **Part 1:** reads the whole file in key order, with record count and total salary.
+- **Part 2:** looks up employees by key: first, middle and last records, plus a key that does not exist, to exercise the INVALID KEY path.
+
+### Record layout (50 bytes)
 
 | Positions | Field      | Picture | Description                |
 |-----------|------------|---------|----------------------------|
-| 1-5       | Number     | 9(05)   | Employee number            |
+| 1-5       | Number     | 9(05)   | Employee number (key)      |
 | 6-35      | Name       | X(30)   | Employee name              |
 | 36        | Status     | 9(01)   | Employee status code       |
 | 37-39     | Department | 9(03)   | Department code            |
 | 40-41     | Position   | 9(02)   | Position code              |
 | 42-50     | Salary     | 9(7)V99 | Salary, 2 implied decimals |
 
-A sample file with 120 fictitious employees is included in this repository.
+### Test results
 
-### Output - `REPORTE_MF.TXT` (80 columns, line sequential)
+| Control       | PROG0020      | PROG0021                         |
+|---------------|---------------|----------------------------------|
+| Records       | 120 written   | 120 read                         |
+| Total salary  | $1,769,195.84 | $1,769,195.84                    |
+| Keyed lookups | -             | 3 found, 1 not found (status 23) |
 
-Paginated employee report with headings, detail lines and control totals.
+Error handling was also tested with a file containing a zero key, a duplicate key and an out-of-sequence key: 9 read = 6 written + 1 skipped + 2 rejected (status 21).
 
-### Program structure
+### How to run (GnuCOBOL)
 
-| Paragraph                 | Purpose                                              |
-|---------------------------|------------------------------------------------------|
-| 0000-PRINCIPAL            | Main control                                         |
-| 1000-INICIALIZAR          | Get system date, open files, print first headings    |
-| 1100-IMPRIMIR-ENCABEZADOS | Count pages and print the page headings              |
-| 2000-PROCESAR-EMPLEADOS   | Accumulate totals for each employee                  |
-| 2100-LEER-REGISTRO        | Read next input record (read-ahead pattern)          |
-| 2200-IMPRIMIR-DETALLE     | Check for page break, format and write a detail line |
-| 3000-FINALIZAR            | Print control totals, close files, show run summary  |
+Place `EMPLOYEES.TXT` in `C:\REPOSITORIO_DATOS\` (or edit the `ASSIGN` clauses), then compile and run:
 
-### Test results with the sample data
+    cobc -x -Wall PROG0020.CBL
+    cobc -x -Wall PROG0021.CBL
+    .\PROG0020.exe
+    .\PROG0021.exe
 
-| Control           | Expected value |
-|-------------------|----------------|
-| Employees read    | 120            |
-| Employees printed | 120            |
-| Pages printed     | 8              |
-| Total salary      | $1,769,195.84  |
-
-Identical results with Micro Focus Visual COBOL and GnuCOBOL.
-
-### How to run
-
-1. Place `EMPLEADOS.TXT` in `C:\REPOSITORIO_PROGRAMAS_GIT\PROG0010\`. The report is written to `C:\COBOL_102\ARCHIVOS_PLANOS\REPORTE_MF.TXT`. To use other locations, edit the `ASSIGN` clauses in `FILE-CONTROL`.
-2. Compile and run:
-   - **Visual COBOL for Eclipse:** add `PROG0010.CBL` to a COBOL project, build it, and run it as a COBOL Application.
-   - **GnuCOBOL:** `cobc -x -Wall PROG0010.CBL`, then run `PROG0010.exe`.
-3. The program waits for ENTER at the end, so the console summary stays visible.
-
-> Note: data names and paragraph names are in Spanish (e.g., `EMPLEADOS` = employees, `SALARIO` = salary, `PAGINA` = page).
+GnuCOBOL must be built with indexed file support (`cobc --info` shows the handler, for example BDB).
