@@ -1,8 +1,8 @@
-﻿# COBOL Portfolio
+# COBOL Portfolio
 
-COBOL programs by **Lorenzo David Diaz**, written with **Micro Focus Visual COBOL for Eclipse** and tested with **GnuCOBOL 3.2**.
+COBOL programs by **Lorenzo David Díaz**, written with **Rocket (Micro Focus) Visual COBOL for Eclipse**, tested with **GnuCOBOL 3.2**, and, for embedded SQL, run against **IBM Db2**.
 
-Decades of experience with COBOL, PL/I, FORTRAN, Assembler and IBM MVS systems, now applied with modern tools: Visual COBOL, GnuCOBOL, Git and GitHub.
+Decades of experience with COBOL, PL/I, FORTRAN, Assembler and IBM MVS systems, now applied with modern tools: Visual COBOL, GnuCOBOL, Db2, Git and GitHub.
 
 ## Program index
 
@@ -11,8 +11,9 @@ Decades of experience with COBOL, PL/I, FORTRAN, Assembler and IBM MVS systems, 
 | PROG0010 | Sequential report with page break and totals       | PROG0010/   |
 | PROG0020 | Load an indexed (keyed) file from a sequential one | PROG0020/   |
 | PROG0021 | Read an indexed file sequentially and by key       | PROG0020/   |
+| ACCTINS  | Db2 INSERT tests with embedded SQL (7 test cases)  | db2/acctins/ |
 
-All programs use the same 120-record employee test data, so their control totals can be checked against each other: **120 records, total salary $1,769,195.84**.
+The file-processing programs (PROG0010 to PROG0021) use the same 120-record employee test data, so their control totals can be checked against each other: **120 records, total salary $1,769,195.84**.
 
 ---
 
@@ -68,3 +69,23 @@ Place `EMPLOYEES.TXT` in `C:\REPOSITORIO_DATOS\` (or edit the `ASSIGN` clauses),
     .\PROG0021.exe
 
 GnuCOBOL must be built with indexed file support (`cobc --info` shows the handler, for example BDB).
+
+---
+
+## Db2 and Embedded SQL
+
+Programs and scripts for IBM Db2, built around the `ACCOUNT` table of a banking system capstone project (schema `Z79583`). They are developed and tested on a PC with Visual COBOL and Db2 Community Edition (Db2 LUW), and written to move to Db2 for z/OS with small changes.
+
+### ACCTINS - Db2 INSERT Tests
+
+A COBOL program with embedded SQL that runs seven INSERT tests and checks that Db2 returns the expected SQLCODE for each one: a complete row, default values, a duplicate key (-803), two check constraints (-545), an invalid date (-181) and a missing NOT NULL column (-407). It shows the SQLCODE and SQLSTATE for each test, and rolls back at the end so it can be run again. **Result: 7 of 7 tests pass.**
+
+Details, sample output and build notes: [`db2/acctins/`](db2/acctins/)
+
+More Db2 items (table DDL for Db2 LUW, Db2 for z/OS and PostgreSQL, and SQL exercises) will be added here.
+
+---
+
+## About this portfolio
+
+Written by Lorenzo David Díaz, with help from Claude (Anthropic) as a coding and review assistant.
