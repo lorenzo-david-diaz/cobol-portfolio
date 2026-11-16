@@ -1,0 +1,258 @@
+CONNECT TO PRACTDB
+
+   Database Connection Information
+
+ Database server        = DB2/NT64 12.1.5.0
+ SQL authorization ID   = DIAZD
+ Local database alias   = PRACTDB
+
+
+SET SCHEMA PRACTICE
+DB20000I  The SQL command completed successfully.
+
+SELECT * FROM PRACTICE.EMP
+
+EMP_ID      FIRST_NAME           LAST_NAME            DEPT_ID JOB                  HIRE_DATE  SALARY      COMMISSION  MANAGER_ID 
+----------- -------------------- -------------------- ------- -------------------- ---------- ----------- ----------- -----------
+       1001 Lorena               Mendez               A00     PRESIDENT            15/03/1998   180000,00           -           -
+       1002 Carlos               Rivas                B01     MANAGER              01/06/2005   120000,00           -        1001
+       1003 Ana                  Torres               C01     MANAGER              10/09/2008   115000,00           -        1001
+       1004 Jose                 Pereira              D01     MANAGER              20/01/2010   110000,00           -        1001
+       1005 Maria                Gonzalez             B01     ANALYST              02/04/2012    85000,00           -        1002
+       1006 Pedro                Salazar              B01     PROGRAMMER           15/07/2015    72000,00           -        1002
+       1007 Luisa                Ramirez              B01     PROGRAMMER           04/11/2019    68000,00           -        1002
+       1008 Jorge                Castillo             C01     ACCOUNTANT           28/02/2011    78000,00           -        1003
+       1009 Elena                Rojas                C01     CLERK                17/08/2020    42000,00           -        1003
+       1010 Ricardo              Blanco               D01     SALESREP             09/05/2016    55000,00     9500,00        1004
+       1011 Sofia                Herrera              D01     SALESREP             22/03/2021    52000,00     7200,00        1004
+       1012 Miguel               Ortega               D01     SALESREP             02/10/2023    48000,00        0,00        1004
+       1013 Carmen               Vargas               D01     CLERK                03/12/2018    40000,00           -        1004
+       1014 Andres               Molina               -       CONSULTANT           15/01/2024    95000,00           -           -
+       1015 Patricia             Luna                 B01     ANALYST              11/05/2009    88000,00           -        1002
+
+  15 record(s) selected.
+
+
+SELECT FIRST_NAME, LAST_NAME, SALARY FROM PRACTICE.EMP ORDER BY SALARY DESC
+
+FIRST_NAME           LAST_NAME            SALARY     
+-------------------- -------------------- -----------
+Lorena               Mendez                 180000,00
+Carlos               Rivas                  120000,00
+Ana                  Torres                 115000,00
+Jose                 Pereira                110000,00
+Andres               Molina                  95000,00
+Patricia             Luna                    88000,00
+Maria                Gonzalez                85000,00
+Jorge                Castillo                78000,00
+Pedro                Salazar                 72000,00
+Luisa                Ramirez                 68000,00
+Ricardo              Blanco                  55000,00
+Sofia                Herrera                 52000,00
+Miguel               Ortega                  48000,00
+Elena                Rojas                   42000,00
+Carmen               Vargas                  40000,00
+
+  15 record(s) selected.
+
+
+SELECT DISTINCT JOB FROM PRACTICE.EMP ORDER BY JOB ASC
+
+JOB                 
+--------------------
+ACCOUNTANT          
+ANALYST             
+CLERK               
+CONSULTANT          
+MANAGER             
+PRESIDENT           
+PROGRAMMER          
+SALESREP            
+
+  8 record(s) selected.
+
+
+SELECT EMP_ID, FIRST_NAME, LAST_NAME FROM PRACTICE.EMP WHERE DEPT_ID = 'B01'
+
+EMP_ID      FIRST_NAME           LAST_NAME           
+----------- -------------------- --------------------
+       1002 Carlos               Rivas               
+       1005 Maria                Gonzalez            
+       1006 Pedro                Salazar             
+       1007 Luisa                Ramirez             
+       1015 Patricia             Luna                
+
+  5 record(s) selected.
+
+
+SELECT EMP_ID FROM PRACTICE.EMP WHERE SALARY BETWEEN 50000 AND 90000
+
+EMP_ID     
+-----------
+       1005
+       1006
+       1007
+       1008
+       1010
+       1011
+       1015
+
+  7 record(s) selected.
+
+
+SELECT EMP_ID, LAST_NAME FROM PRACTICE.EMP WHERE LAST_NAME LIKE 'R%'
+
+EMP_ID      LAST_NAME           
+----------- --------------------
+       1002 Rivas               
+       1007 Ramirez             
+       1009 Rojas               
+
+  3 record(s) selected.
+
+
+SELECT EMP_ID, LAST_NAME, DEPT_ID FROM PRACTICE.EMP WHERE DEPT_ID IN ('C01', 'D01')
+
+EMP_ID      LAST_NAME            DEPT_ID
+----------- -------------------- -------
+       1003 Torres               C01    
+       1004 Pereira              D01    
+       1008 Castillo             C01    
+       1009 Rojas                C01    
+       1010 Blanco               D01    
+       1011 Herrera              D01    
+       1012 Ortega               D01    
+       1013 Vargas               D01    
+
+  8 record(s) selected.
+
+
+SELECT EMP_ID, COMMISSION FROM PRACTICE.EMP WHERE COMMISSION IS NULL
+
+EMP_ID      COMMISSION 
+----------- -----------
+       1001           -
+       1002           -
+       1003           -
+       1004           -
+       1005           -
+       1006           -
+       1007           -
+       1008           -
+       1009           -
+       1013           -
+       1014           -
+       1015           -
+
+  12 record(s) selected.
+
+
+SELECT EMP_ID FROM PRACTICE.EMP WHERE DEPT_ID IS NULL
+
+EMP_ID     
+-----------
+       1014
+
+  1 record(s) selected.
+
+
+SELECT EMP_ID, HIRE_DATE FROM PRACTICE.EMP WHERE HIRE_DATE >= '2015-01-01' ORDER BY HIRE_DATE ASC
+
+EMP_ID      HIRE_DATE 
+----------- ----------
+       1006 15/07/2015
+       1010 09/05/2016
+       1013 03/12/2018
+       1007 04/11/2019
+       1009 17/08/2020
+       1011 22/03/2021
+       1012 02/10/2023
+       1014 15/01/2024
+
+  8 record(s) selected.
+
+
+SELECT EMP_ID, DEPT_ID, SALARY, COMMISSION, SALARY + COALESCE(COMMISSION, 0) AS TOTAL_PAY FROM PRACTICE.EMP WHERE DEPT_ID = 'D01'
+
+EMP_ID      DEPT_ID SALARY      COMMISSION  TOTAL_PAY       
+----------- ------- ----------- ----------- ----------------
+       1004 D01       110000,00           -        110000,00
+       1010 D01        55000,00     9500,00         64500,00
+       1011 D01        52000,00     7200,00         59200,00
+       1012 D01        48000,00        0,00         48000,00
+       1013 D01        40000,00           -         40000,00
+
+  5 record(s) selected.
+
+
+SELECT EMP_ID, SALARY FROM PRACTICE.EMP ORDER BY SALARY DESC FETCH FIRST 3 ROWS ONLY
+
+EMP_ID      SALARY     
+----------- -----------
+       1001   180000,00
+       1002   120000,00
+       1003   115000,00
+
+  3 record(s) selected.
+
+
+SELECT EMP_ID, SALARY, CASE WHEN SALARY >= 100000 THEN 'HIGH' WHEN SALARY >= 60000 THEN 'MEDIUM' ELSE 'LOW' END AS SALARY_BAND FROM PRACTICE.EMP ORDER BY SALARY DESC
+
+EMP_ID      SALARY      SALARY_BAND
+----------- ----------- -----------
+       1001   180000,00 HIGH       
+       1002   120000,00 HIGH       
+       1003   115000,00 HIGH       
+       1004   110000,00 HIGH       
+       1014    95000,00 MEDIUM     
+       1015    88000,00 MEDIUM     
+       1005    85000,00 MEDIUM     
+       1008    78000,00 MEDIUM     
+       1006    72000,00 MEDIUM     
+       1007    68000,00 MEDIUM     
+       1010    55000,00 LOW        
+       1011    52000,00 LOW        
+       1012    48000,00 LOW        
+       1009    42000,00 LOW        
+       1013    40000,00 LOW        
+
+  15 record(s) selected.
+
+
+SELECT EMP_ID, DEPT_ID, HIRE_DATE, JOB FROM PRACTICE.EMP WHERE DEPT_ID = 'B01' AND JOB IN ('PROGRAMMER', 'ANALYST') AND HIRE_DATE < '2016-01-01' ORDER BY HIRE_DATE
+
+EMP_ID      DEPT_ID HIRE_DATE  JOB                 
+----------- ------- ---------- --------------------
+       1015 B01     11/05/2009 ANALYST             
+       1005 B01     02/04/2012 ANALYST             
+       1006 B01     15/07/2015 PROGRAMMER          
+
+  3 record(s) selected.
+
+
+SELECT EMP_ID, LAST_NAME || ', ' || FIRST_NAME AS FULL_NAME FROM PRACTICE.EMP ORDER BY FULL_NAME
+
+EMP_ID      FULL_NAME                                 
+----------- ------------------------------------------
+       1010 Blanco, Ricardo                           
+       1008 Castillo, Jorge                           
+       1005 Gonzalez, Maria                           
+       1011 Herrera, Sofia                            
+       1015 Luna, Patricia                            
+       1001 Mendez, Lorena                            
+       1014 Molina, Andres                            
+       1012 Ortega, Miguel                            
+       1004 Pereira, Jose                             
+       1007 Ramirez, Luisa                            
+       1002 Rivas, Carlos                             
+       1009 Rojas, Elena                              
+       1006 Salazar, Pedro                            
+       1003 Torres, Ana                               
+       1013 Vargas, Carmen                            
+
+  15 record(s) selected.
+
+
+CONNECT RESET
+DB20000I  The SQL command completed successfully.
+
