@@ -1,0 +1,156 @@
+1IDCAMS  SYSTEM SERVICES                                           TIME: 17:41:19        11/16/26     PAGE      1
+0
+   PRINT INDATASET(Z79583.MY.ACCOUNTS.PATH) CHARACTER
+1IDCAMS  SYSTEM SERVICES                                           TIME: 17:41:19        11/16/26     PAGE      2
+-LISTING OF DATA SET -Z79583.MY.ACCOUNTS.PATH
+0KEY OF RECORD - ACOSTA MENDEZ, ALBERTO
+ 1000000011ACOSTA MENDEZ, ALBERTO        A0000073559020200901A
+0KEY OF RECORD - BRICENO LUGO, CARMEN
+ 1000000041BRICENO LUGO, CARMEN          A0001500000020120717A
+0KEY OF RECORD - CASTILLO ROJAS, MIGUEL
+ 1000000029CASTILLO ROJAS, MIGUEL        A0000642001020210630A
+0KEY OF RECORD - DIAZ MENDOZA, LUISA
+ 1000000001DIAZ MENDOZA, LUISA           A0000325000020140210A
+0KEY OF RECORD - DIAZ MENDOZA, LUISA
+ 1000000901DIAZ MENDOZA, LUISA           C0000045000020220516A
+0KEY OF RECORD - DIAZ MENDOZA, LUISA
+ 1000000902DIAZ MENDOZA, LUISA           A0000120005020250103B
+0KEY OF RECORD - HERNANDEZ FLORES, FRANCISCO
+ 1000000003HERNANDEZ FLORES, FRANCISCO   A0000458002020150605A
+0KEY OF RECORD - MARQUEZ ROJAS, ANDREINA
+ 1000000017MARQUEZ ROJAS, ANDREINA       C0000120000020190312A
+0KEY OF RECORD - NAVARRO LEON, PATRICIA
+ 1000000045NAVARRO LEON, PATRICIA        A0000050000020261019A
+0KEY OF RECORD - OCHOA VARGAS, GABRIELA
+ 1000000009OCHOA VARGAS, GABRIELA        C0000231000020170228A
+0KEY OF RECORD - PEREZ GOMEZ, EDUARDO
+ 1000000037PEREZ GOMEZ, EDUARDO          C0000051234520240822A
+0KEY OF RECORD - RAMIREZ SILVA, ELENA
+ 1000000013RAMIREZ SILVA, ELENA          A0000887506020160413A
+0KEY OF RECORD - RAMIREZ SILVA, ELENA
+ 1000000903RAMIREZ SILVA, ELENA          C0000009876520230807A
+0KEY OF RECORD - SALAZAR PINTO, RAFAEL
+ 1000000025SALAZAR PINTO, RAFAEL         A0000009305020231120A
+0KEY OF RECORD - TORRES TORRES, ANTONIO
+ 1000000005TORRES TORRES, ANTONIO        C0000199999920181004A
+0IDC0005I NUMBER OF RECORDS PROCESSED WAS 15
+0IDC0001I FUNCTION COMPLETED, HIGHEST CONDITION CODE WAS 0
+1IDCAMS  SYSTEM SERVICES                                           TIME: 17:41:19        11/16/26     PAGE      3
+0
+   LISTCAT ENTRIES(Z79583.MY.ACCOUNTS.AIX) ALL
+0AIX ----------- Z79583.MY.ACCOUNTS.AIX
+      IN-CAT --- CATALOG.ZOSQ
+      HISTORY
+        DATASET-OWNER-----(NULL)     CREATION--------2026.320
+        RELEASE----------------2     EXPIRATION------0000.000
+        SMS MANAGED--------(YES)
+        CA-RECLAIM---------(YES)
+      ENCRYPTIONDATA
+        DATA SET ENCRYPTION-----(NO)
+      PROTECTION-PSWD-----(NULL)     RACF----------------(NO)
+      ASSOCIATIONS
+        DATA-----Z79583.MY.ACCOUNTS.AIX.DATA
+        INDEX----Z79583.MY.ACCOUNTS.AIX.INDEX
+        CLUSTER--Z79583.MY.ACCOUNTS.KSDS
+        PATH-----Z79583.MY.ACCOUNTS.PATH
+      ATTRIBUTES
+        UPGRADE
+0   DATA ------- Z79583.MY.ACCOUNTS.AIX.DATA
+      IN-CAT --- CATALOG.ZOSQ
+      HISTORY
+        DATASET-OWNER-----(NULL)     CREATION--------2026.320
+        RELEASE----------------2     EXPIRATION------0000.000
+        ACCOUNT-INFO-----------------------------------(NULL)
+      RLSDATA
+        ALTKEYS -----(NULL)
+        AIX QUIESCED ---  (NO)
+      PROTECTION-PSWD-----(NULL)     RACF----------------(NO)
+      ASSOCIATIONS
+        AIX------Z79583.MY.ACCOUNTS.AIX
+      ATTRIBUTES
+        KEYLEN----------------30     AVGLRECL--------------45     BUFSPACE-----------37376     CISIZE-------------18432
+        RKP--------------------5     MAXLRECL-------------135     EXCPEXIT----------(NULL)     CI/CA------------------3
+        AXRKP-----------------10
+        SHROPTNS(2,3)   RECOVERY     UNIQUE           NOERASE     INDEXED       NOWRITECHK     UNORDERED        NOREUSE
+        SPANNED       NONUNIQKEY
+      STATISTICS
+        REC-TOTAL-------------12     SPLITS-CI--------------0     EXCPS------------------3
+        REC-DELETED------------0     SPLITS-CA--------------0     EXTENTS----------------1
+        REC-INSERTED-----------0     FREESPACE-%CI---------10     SYSTEM-TIMESTAMP:
+        REC-UPDATED------------0     FREESPACE-%CA---------10          X'E397D99354528B5A'
+        REC-RETRIEVED---------12     FREESPC------------36864
+      ALLOCATION
+        SPACE-TYPE---------TRACK     HI-A-RBA-----------55296
+        SPACE-PRI--------------1     HI-U-RBA-----------55296
+        SPACE-SEC--------------1
+      VOLUME
+        VOLSER------------ZXPC02     PHYREC-SIZE--------18432     HI-A-RBA-----------55296     EXTENT-NUMBER----------1
+1IDCAMS  SYSTEM SERVICES                                           TIME: 17:41:19        11/16/26     PAGE      4
+0       DEVTYPE------X'3010200F'     PHYRECS/TRK------------3     HI-U-RBA-----------55296     EXTENT-TYPE--------X'00'
+        VOLFLAG------------PRIME     TRACKS/CA--------------1
+        EXTENTS:
+        LOW-CCHH-----X'0571000B'     LOW-RBA----------------0     TRACKS-----------------1
+        HIGH-CCHH----X'0571000B'     HIGH-RBA-----------55295
+0   INDEX ------ Z79583.MY.ACCOUNTS.AIX.INDEX
+      IN-CAT --- CATALOG.ZOSQ
+      HISTORY
+        DATASET-OWNER-----(NULL)     CREATION--------2026.320
+        RELEASE----------------2     EXPIRATION------0000.000
+      PROTECTION-PSWD-----(NULL)     RACF----------------(NO)
+      ASSOCIATIONS
+        AIX------Z79583.MY.ACCOUNTS.AIX
+      ATTRIBUTES
+        KEYLEN----------------30     AVGLRECL---------------0     BUFSPACE---------------0     CISIZE---------------512
+        RKP--------------------5     MAXLRECL-------------505     EXCPEXIT----------(NULL)     CI/CA-----------------49
+        SHROPTNS(2,3)   RECOVERY     UNIQUE           NOERASE     NOWRITECHK     UNORDERED     NOREUSE
+      STATISTICS
+        REC-TOTAL--------------1     SPLITS-CI--------------0     EXCPS------------------4     INDEX:
+        REC-DELETED------------0     SPLITS-CA--------------0     EXTENTS----------------1     LEVELS-----------------1
+        REC-INSERTED-----------0     FREESPACE-%CI----------0     SYSTEM-TIMESTAMP:            ENTRIES/SECT-----------1
+        REC-UPDATED------------0     FREESPACE-%CA----------0          X'E397D99354528B5A' SEQ-SET-RBA----------------0
+        REC-RETRIEVED----------0     FREESPC------------24576                              HI-LEVEL-RBA---------------0
+      ALLOCATION
+        SPACE-TYPE---------TRACK     HI-A-RBA-----------25088
+        SPACE-PRI--------------1     HI-U-RBA-------------512
+        SPACE-SEC--------------1
+      VOLUME
+        VOLSER------------ZXPC02     PHYREC-SIZE----------512     HI-A-RBA-----------25088     EXTENT-NUMBER----------1
+        DEVTYPE------X'3010200F'     PHYRECS/TRK-----------49     HI-U-RBA-------------512     EXTENT-TYPE--------X'00'
+        VOLFLAG------------PRIME     TRACKS/CA--------------1
+        EXTENTS:
+        LOW-CCHH-----X'0571000C'     LOW-RBA----------------0     TRACKS-----------------1
+        HIGH-CCHH----X'0571000C'     HIGH-RBA-----------25087
+0   PATH ------- Z79583.MY.ACCOUNTS.PATH
+      IN-CAT --- CATALOG.ZOSQ
+      HISTORY
+        DATASET-OWNER-----(NULL)     CREATION--------2026.320
+        RELEASE----------------2     EXPIRATION------0000.000
+      PROTECTION-PSWD-----(NULL)     RACF----------------(NO)
+      ASSOCIATIONS
+        AIX------Z79583.MY.ACCOUNTS.AIX
+        DATA-----Z79583.MY.ACCOUNTS.AIX.DATA
+        INDEX----Z79583.MY.ACCOUNTS.AIX.INDEX
+        DATA-----Z79583.MY.ACCOUNTS.KSDS.DATA
+        INDEX----Z79583.MY.ACCOUNTS.KSDS.INDEX
+      ATTRIBUTES
+        UPDATE
+1IDCAMS  SYSTEM SERVICES                                           TIME: 17:41:19        11/16/26     PAGE      5
+0         THE NUMBER OF ENTRIES PROCESSED WAS:
+                    AIX -------------------1
+                    ALIAS -----------------0
+                    CLUSTER ---------------0
+                    DATA ------------------1
+                    GDG -------------------0
+                    INDEX -----------------1
+                    NONVSAM ---------------0
+                    PAGESPACE -------------0
+                    PATH ------------------1
+                    SPACE -----------------0
+                    USERCATALOG -----------0
+                    TAPELIBRARY -----------0
+                    TAPEVOLUME ------------0
+                    TOTAL -----------------4
+0         THE NUMBER OF PROTECTED ENTRIES SUPPRESSED WAS 0
+0IDC0001I FUNCTION COMPLETED, HIGHEST CONDITION CODE WAS 0
+0
+0IDC0002I IDCAMS PROCESSING COMPLETE. MAXIMUM CONDITION CODE WAS 0

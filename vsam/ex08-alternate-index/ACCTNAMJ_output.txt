@@ -1,0 +1,51 @@
+ VSAM EXERCISE 8 - ACCOUNT INQUIRY BY HOLDER NAME
+ --------------------------------------------------------------------------------
+ INQUIRY 00001: DIAZ MENDOZA, LUISA
+   1000000001  DIAZ MENDOZA, LUISA             SAVINGS       32,500.00  ACTIVE   FS 02
+   1000000901  DIAZ MENDOZA, LUISA             CHECKING       4,500.00  ACTIVE   FS 02
+   1000000902  DIAZ MENDOZA, LUISA             SAVINGS       12,000.50  BLOCKED  FS 00
+     WARNING: ACCOUNT IS BLOCKED
+   ACCOUNTS FOR THIS NAME:      3
+ --------------------------------------------------------------------------------
+ INQUIRY 00002: RAMIREZ SILVA, ELENA
+   1000000013  RAMIREZ SILVA, ELENA            SAVINGS       88,750.60  ACTIVE   FS 02
+   1000000903  RAMIREZ SILVA, ELENA            CHECKING         987.65  ACTIVE   FS 00
+   ACCOUNTS FOR THIS NAME:      2
+ --------------------------------------------------------------------------------
+ INQUIRY 00003: BRICENO LUGO, CARMEN
+   1000000041  BRICENO LUGO, CARMEN            SAVINGS      150,000.00  ACTIVE   FS 00
+   ACCOUNTS FOR THIS NAME:      1
+ --------------------------------------------------------------------------------
+ INQUIRY 00004: SALAZAR PINTO, RAFAEL
+   1000000025  SALAZAR PINTO, RAFAEL           SAVINGS          930.50  ACTIVE   FS 00
+   ACCOUNTS FOR THIS NAME:      1
+ --------------------------------------------------------------------------------
+ INQUIRY 00005: LOPEZ GARCIA, PEDRO
+   NO ACCOUNTS FOR THIS NAME (FILE STATUS 23)
+ --------------------------------------------------------------------------------
+ INQUIRY 00006: BLANK NAME - SKIPPED
+ --------------------------------------------------------------------------------
+
+ ALL ACCOUNTS IN HOLDER-NAME ORDER
+ --------------------------------------------------------------------------------
+   1000000011  ACOSTA MENDEZ, ALBERTO          SAVINGS        7,355.90  ACTIVE
+   1000000041  BRICENO LUGO, CARMEN            SAVINGS      150,000.00  ACTIVE
+   1000000029  CASTILLO ROJAS, MIGUEL          SAVINGS       64,200.10  ACTIVE
+   1000000001  DIAZ MENDOZA, LUISA             SAVINGS       32,500.00  ACTIVE
+   1000000901  DIAZ MENDOZA, LUISA             CHECKING       4,500.00  ACTIVE
+   1000000902  DIAZ MENDOZA, LUISA             SAVINGS       12,000.50  BLOCKED
+   1000000003  HERNANDEZ FLORES, FRANCISCO     SAVINGS       45,800.20  ACTIVE
+   1000000017  MARQUEZ ROJAS, ANDREINA         CHECKING      12,000.00  ACTIVE
+   1000000045  NAVARRO LEON, PATRICIA          SAVINGS        5,000.00  ACTIVE
+   1000000009  OCHOA VARGAS, GABRIELA          CHECKING      23,100.00  ACTIVE
+   1000000037  PEREZ GOMEZ, EDUARDO            CHECKING       5,123.45  ACTIVE
+   1000000013  RAMIREZ SILVA, ELENA            SAVINGS       88,750.60  ACTIVE
+   1000000903  RAMIREZ SILVA, ELENA            CHECKING         987.65  ACTIVE
+   1000000025  SALAZAR PINTO, RAFAEL           SAVINGS          930.50  ACTIVE
+   1000000005  TORRES TORRES, ANTONIO          CHECKING      19,999.99  ACTIVE
+ --------------------------------------------------------------------------------
+ INQUIRIES         :      6
+ NAMES FOUND       :      4
+ NAMES NOT FOUND   :      1
+ BLANK NAMES       :      1
+ ACCOUNTS LISTED   :     15
