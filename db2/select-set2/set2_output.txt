@@ -1,0 +1,290 @@
+CONNECT TO PRACTDB
+
+   Database Connection Information
+
+ Database server        = DB2/NT64 12.1.5.0
+ SQL authorization ID   = DIAZD
+ Local database alias   = PRACTDB
+
+
+SET SCHEMA PRACTICE
+DB20000I  The SQL command completed successfully.
+
+SELECT COUNT(*) AS TOTAL_EMPLOYEES, COUNT(COMMISSION) AS EMPLOYEES_WITH_COMMISSION FROM PRACTICE.EMP
+
+TOTAL_EMPLOYEES EMPLOYEES_WITH_COMMISSION
+--------------- -------------------------
+             15                         3
+
+  1 record(s) selected.
+
+
+SELECT SUM(SALARY) AS TOTAL, DECIMAL(ROUND(AVG(SALARY), 2), 9, 2) AS AVG_SALARY, MAX(SALARY) AS HIGHEST, MIN(SALARY) AS LOWEST FROM PRACTICE.EMP
+
+TOTAL                             AVG_SALARY  HIGHEST     LOWEST     
+--------------------------------- ----------- ----------- -----------
+                       1248000,00    83200,00   180000,00    40000,00
+
+  1 record(s) selected.
+
+
+SELECT DEPT_ID, COUNT(EMP_ID) AS EMPLOYEES FROM PRACTICE.EMP GROUP BY DEPT_ID ORDER BY DEPT_ID
+
+DEPT_ID EMPLOYEES  
+------- -----------
+A00               1
+B01               5
+C01               3
+D01               5
+-                 1
+
+  5 record(s) selected.
+
+
+SELECT JOB, DECIMAL(ROUND(AVG(SALARY), 2), 9, 2) AS AVERAGE FROM PRACTICE.EMP GROUP BY JOB ORDER BY AVERAGE DESC
+
+JOB                  AVERAGE    
+-------------------- -----------
+PRESIDENT              180000,00
+MANAGER                115000,00
+CONSULTANT              95000,00
+ANALYST                 86500,00
+ACCOUNTANT              78000,00
+PROGRAMMER              70000,00
+SALESREP                51666,67
+CLERK                   41000,00
+
+  8 record(s) selected.
+
+
+SELECT DEPT_ID, COUNT(*) AS HEADCOUNT FROM PRACTICE.EMP GROUP BY DEPT_ID HAVING COUNT(*) > 3
+
+DEPT_ID HEADCOUNT  
+------- -----------
+B01               5
+D01               5
+
+  2 record(s) selected.
+
+
+SELECT JOB, DECIMAL(ROUND(AVG(SALARY), 2), 9, 2) AS AVERAGE FROM PRACTICE.EMP GROUP BY JOB HAVING AVG(SALARY) > 70000 ORDER BY AVERAGE DESC
+
+JOB                  AVERAGE    
+-------------------- -----------
+PRESIDENT              180000,00
+MANAGER                115000,00
+CONSULTANT              95000,00
+ANALYST                 86500,00
+ACCOUNTANT              78000,00
+
+  5 record(s) selected.
+
+
+SELECT DEPT_ID, COUNT(*) AS HEADCOUNT, SUM(SALARY) AS TOTAL FROM PRACTICE.EMP WHERE HIRE_DATE < '2020-01-01' GROUP BY DEPT_ID HAVING SUM(SALARY) > 200000
+
+DEPT_ID HEADCOUNT   TOTAL                            
+------- ----------- ---------------------------------
+B01               5                         433000,00
+D01               3                         205000,00
+
+  2 record(s) selected.
+
+
+SELECT DEPT_ID, JOB, COUNT(*) AS EMPLOYEES FROM PRACTICE.EMP WHERE DEPT_ID IS NOT NULL GROUP BY DEPT_ID, JOB ORDER BY DEPT_ID, JOB
+
+DEPT_ID JOB                  EMPLOYEES  
+------- -------------------- -----------
+A00     PRESIDENT                      1
+B01     ANALYST                        2
+B01     MANAGER                        1
+B01     PROGRAMMER                     2
+C01     ACCOUNTANT                     1
+C01     CLERK                          1
+C01     MANAGER                        1
+D01     CLERK                          1
+D01     MANAGER                        1
+D01     SALESREP                       3
+
+  10 record(s) selected.
+
+
+SELECT E.LAST_NAME, D.DEPT_NAME FROM PRACTICE.EMP E INNER JOIN PRACTICE.DEPT D ON E.DEPT_ID = D.DEPT_ID ORDER BY E.LAST_NAME
+
+LAST_NAME            DEPT_NAME                     
+-------------------- ------------------------------
+Blanco               Operations                    
+Castillo             Finance                       
+Gonzalez             Information Technology        
+Herrera              Operations                    
+Luna                 Information Technology        
+Mendez               Administration                
+Ortega               Operations                    
+Pereira              Operations                    
+Ramirez              Information Technology        
+Rivas                Information Technology        
+Rojas                Finance                       
+Salazar              Information Technology        
+Torres               Finance                       
+Vargas               Operations                    
+
+  14 record(s) selected.
+
+
+SELECT E.LAST_NAME, D.DEPT_NAME FROM PRACTICE.EMP E LEFT OUTER JOIN PRACTICE.DEPT D ON E.DEPT_ID = D.DEPT_ID ORDER BY E.LAST_NAME
+
+LAST_NAME            DEPT_NAME                     
+-------------------- ------------------------------
+Blanco               Operations                    
+Castillo             Finance                       
+Gonzalez             Information Technology        
+Herrera              Operations                    
+Luna                 Information Technology        
+Mendez               Administration                
+Molina               -                             
+Ortega               Operations                    
+Pereira              Operations                    
+Ramirez              Information Technology        
+Rivas                Information Technology        
+Rojas                Finance                       
+Salazar              Information Technology        
+Torres               Finance                       
+Vargas               Operations                    
+
+  15 record(s) selected.
+
+
+SELECT E.LAST_NAME, COALESCE(D.DEPT_NAME, 'No department') AS DEPT_NAME FROM PRACTICE.EMP E LEFT OUTER JOIN PRACTICE.DEPT D ON E.DEPT_ID = D.DEPT_ID ORDER BY E.LAST_NAME
+
+LAST_NAME            DEPT_NAME                     
+-------------------- ------------------------------
+Blanco               Operations                    
+Castillo             Finance                       
+Gonzalez             Information Technology        
+Herrera              Operations                    
+Luna                 Information Technology        
+Mendez               Administration                
+Molina               No department                 
+Ortega               Operations                    
+Pereira              Operations                    
+Ramirez              Information Technology        
+Rivas                Information Technology        
+Rojas                Finance                       
+Salazar              Information Technology        
+Torres               Finance                       
+Vargas               Operations                    
+
+  15 record(s) selected.
+
+
+SELECT D.DEPT_ID, D.DEPT_NAME FROM PRACTICE.DEPT D LEFT OUTER JOIN PRACTICE.EMP E ON E.DEPT_ID = D.DEPT_ID WHERE E.EMP_ID IS NULL
+
+DEPT_ID DEPT_NAME                     
+------- ------------------------------
+E01     Marketing                     
+
+  1 record(s) selected.
+
+
+SELECT D.DEPT_NAME, COUNT(E.EMP_ID) AS HEADCOUNT FROM PRACTICE.DEPT D LEFT OUTER JOIN PRACTICE.EMP E ON D.DEPT_ID = E.DEPT_ID GROUP BY D.DEPT_NAME ORDER BY D.DEPT_NAME
+
+DEPT_NAME                      HEADCOUNT  
+------------------------------ -----------
+Administration                           1
+Finance                                  3
+Information Technology                   5
+Marketing                                0
+Operations                               5
+
+  5 record(s) selected.
+
+
+SELECT E.LAST_NAME AS EMPLOYEE, M.LAST_NAME AS MANAGER FROM PRACTICE.EMP E INNER JOIN PRACTICE.EMP M ON E.MANAGER_ID = M.EMP_ID ORDER BY M.LAST_NAME, E.LAST_NAME
+
+EMPLOYEE             MANAGER             
+-------------------- --------------------
+Pereira              Mendez              
+Rivas                Mendez              
+Torres               Mendez              
+Blanco               Pereira             
+Herrera              Pereira             
+Ortega               Pereira             
+Vargas               Pereira             
+Gonzalez             Rivas               
+Luna                 Rivas               
+Ramirez              Rivas               
+Salazar              Rivas               
+Castillo             Torres              
+Rojas                Torres              
+
+  13 record(s) selected.
+
+
+SELECT EMP_ID, LAST_NAME, SALARY FROM PRACTICE.EMP WHERE SALARY > (SELECT AVG(SALARY) FROM PRACTICE.EMP) ORDER BY SALARY DESC
+
+EMP_ID      LAST_NAME            SALARY     
+----------- -------------------- -----------
+       1001 Mendez                 180000,00
+       1002 Rivas                  120000,00
+       1003 Torres                 115000,00
+       1004 Pereira                110000,00
+       1014 Molina                  95000,00
+       1015 Luna                    88000,00
+       1005 Gonzalez                85000,00
+
+  7 record(s) selected.
+
+
+SELECT E.LAST_NAME, D.LOCATION FROM PRACTICE.EMP E INNER JOIN PRACTICE.DEPT D ON E.DEPT_ID = D.DEPT_ID WHERE D.LOCATION = 'Caracas' ORDER BY E.LAST_NAME
+
+LAST_NAME            LOCATION            
+-------------------- --------------------
+Gonzalez             Caracas             
+Luna                 Caracas             
+Mendez               Caracas             
+Ramirez              Caracas             
+Rivas                Caracas             
+Salazar              Caracas             
+
+  6 record(s) selected.
+
+
+SELECT E.LAST_NAME, E.DEPT_ID FROM PRACTICE.EMP E WHERE E.DEPT_ID IN (SELECT DEPT_ID FROM PRACTICE.DEPT WHERE LOCATION = 'Caracas') ORDER BY E.LAST_NAME
+
+LAST_NAME            DEPT_ID
+-------------------- -------
+Gonzalez             B01    
+Luna                 B01    
+Mendez               A00    
+Ramirez              B01    
+Rivas                B01    
+Salazar              B01    
+
+  6 record(s) selected.
+
+
+SELECT D.LOCATION, COUNT(*) AS EMP_COUNT, DECIMAL(ROUND(AVG(E.SALARY), 2), 11, 2) AS AVG_SALARY FROM PRACTICE.EMP E INNER JOIN PRACTICE.DEPT D ON E.DEPT_ID = D.DEPT_ID GROUP BY D.LOCATION ORDER BY EMP_COUNT DESC
+
+LOCATION             EMP_COUNT   AVG_SALARY   
+-------------------- ----------- -------------
+Caracas                        6     102166,67
+Valencia                       5      61000,00
+Maracaibo                      3      78333,33
+
+  3 record(s) selected.
+
+
+SELECT E.DEPT_ID, E.LAST_NAME, E.SALARY FROM PRACTICE.EMP E WHERE E.SALARY = (SELECT MAX(X.SALARY) FROM PRACTICE.EMP X WHERE X.DEPT_ID = E.DEPT_ID) ORDER BY E.DEPT_ID
+
+DEPT_ID LAST_NAME            SALARY     
+------- -------------------- -----------
+A00     Mendez                 180000,00
+B01     Rivas                  120000,00
+C01     Torres                 115000,00
+D01     Pereira                110000,00
+
+  4 record(s) selected.
+
+
+CONNECT RESET
+DB20000I  The SQL command completed successfully.
+
