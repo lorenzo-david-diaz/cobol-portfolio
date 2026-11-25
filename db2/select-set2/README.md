@@ -28,7 +28,10 @@ The data includes some deliberate traps:
 
 ## How to run
 
-From a Db2 Command Window, in this folder:
+First create the practice tables with
+[`select_practice_setup.sql`](../select-set1/select_practice_setup.sql) from Set 1.
+
+Then, from a Db2 Command Window, in this folder:
 
 ```
 db2 -tvf set2_answers.sql > set2_output.txt
